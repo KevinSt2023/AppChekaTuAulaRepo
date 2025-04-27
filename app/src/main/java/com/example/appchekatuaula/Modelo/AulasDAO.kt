@@ -27,6 +27,7 @@ class AulasDAO(context: Context) {
                     val ubicacionPabellon:String = cursor.getString(cursor.getColumnIndexOrThrow("ubicacionPabellon"))
                     val ubicacionPiso:String = cursor.getString(cursor.getColumnIndexOrThrow("ubicacionPiso"))
                     val requisitos:String = cursor.getString(cursor.getColumnIndexOrThrow("requisitos"))
+                    val imagen:String = cursor.getString(cursor.getColumnIndexOrThrow("imagen"))
 
                     val aula = Aulas()
                     aula.nombre =nombre
@@ -34,6 +35,7 @@ class AulasDAO(context: Context) {
                     aula.ubicacionPabellon = ubicacionPabellon
                     aula.ubicacionPiso = ubicacionPiso
                     aula.requisitos = requisitos
+                    aula.imagen = imagen
                     listarAulas.add(aula)
                 }while(cursor.moveToNext())
             }

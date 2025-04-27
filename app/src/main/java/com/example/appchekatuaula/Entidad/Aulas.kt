@@ -8,4 +8,5 @@ class Aulas {
     lateinit var ubicacionPabellon : String
     lateinit var ubicacionPiso : String
     lateinit var requisitos : String
+    lateinit var imagen:String
 }
