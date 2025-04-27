@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Fondo blanco del spinner -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white" />
+            <corners android:radius="8dp" /> <!-- Bordes redondeados opcionales -->
+        </shape>
+    </item>
+
+    <!-- Flecha pequeña a la derecha -->
+    <item
+        android:drawable="@drawable/ic_arrow_spinner"
+        android:gravity="end|center_vertical"
+        android:width="25dp"
+        android:height="25dp"
+        android:right="12dp"/> <!-- Margen de la derecha -->
+
+</layer-list>

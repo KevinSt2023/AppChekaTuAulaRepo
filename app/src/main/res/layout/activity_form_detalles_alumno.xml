@@ -34,10 +34,11 @@
     <Spinner
         android:id="@+id/spnAulas"
         android:layout_width="200dp"
-        android:layout_height="35dp"
+        android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:backgroundTint="@color/white"
+        android:background="@drawable/spinner_background"
+        android:popupBackground="@color/white"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
@@ -59,6 +60,7 @@
         android:layout_height="317dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="12dp"
+        android:contentDescription="Lista de aulas"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -74,5 +76,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rcVista" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
