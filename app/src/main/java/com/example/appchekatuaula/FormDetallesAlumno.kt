@@ -27,10 +27,14 @@ class FormDetallesAlumno : AppCompatActivity() {
 
     private lateinit var listaAulas: ArrayList<Aulas> // Para guardar las aulas traídas de BD
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_form_detalles_alumno)
+
+        val codigoAlumno = intent.getStringExtra("codigoAlumno")
 
         asignarReferencias()
         cargarSpinner()
@@ -56,11 +60,13 @@ class FormDetallesAlumno : AppCompatActivity() {
     }
 
     private fun cargarSpinner() {
+        val codigoAlumno = intent.getStringExtra("codigoAlumno") ?: return
+
         val aulasDAO = AulasDAO(this)
-        listaAulas = aulasDAO.cargarAulas()
+        listaAulas = aulasDAO.obtenerAulasPorAlumno(codigoAlumno) // 👈 cargar solo aulas del alumno
 
         val nombresAulas = arrayListOf<String>()
-        nombresAulas.add("Selecciona...") // Primer elemento
+        nombresAulas.add("Selecciona...")
         nombresAulas.addAll(listaAulas.map { it.nombre ?: "Sin nombre" })
 
         val adapterSpinner = ArrayAdapter(this, android.R.layout.simple_spinner_item, nombresAulas)
@@ -70,22 +76,20 @@ class FormDetallesAlumno : AppCompatActivity() {
         spnAulas.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 if (position == 0) {
-                    // No mostrar nada si es "Selecciona..."
                     rcVista.adapter = null
                     return
                 }
 
-                val aulaSeleccionada = listaAulas[position - 1] // Ajustar posición
+                val aulaSeleccionada = listaAulas[position - 1]
                 val listaMostrar = arrayListOf(aulaSeleccionada)
 
                 val adapterRecycler = DetalleAulaAdapter(listaMostrar)
                 rcVista.adapter = adapterRecycler
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Nada
-            }
+            override fun onNothingSelected(parent: AdapterView<*>) {}
         }
     }
+
 }
 

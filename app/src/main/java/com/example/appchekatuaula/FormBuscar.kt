@@ -36,17 +36,17 @@ class FormBuscar : AppCompatActivity() {
             if (codigo.isNotEmpty()) {
                 val aulaEncontrada = dbHelper.buscarAulaPorCodigo(codigo)
                 if (aulaEncontrada != null) {
-                    // Creamos un Intent para abrir FormDetalles
                     val intent = Intent(this, FormDetallesAlumno::class.java)
-                    intent.putExtra("nombreAula", aulaEncontrada)
+                    intent.putExtra("codigoAlumno", codigo) // 👈 enviamos el código
                     startActivity(intent)
                 } else {
                     txtResultado.text = "No se encontró un aula para ese código."
                 }
             } else {
-                txtResultado.text = "Por favor ingresa un código"
+                txtResultado.text = "Por favor ingresa un código."
             }
         }
+
 
     }
 

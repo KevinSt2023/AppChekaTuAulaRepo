@@ -1,12 +1,11 @@
 package com.example.appchekatuaula.Entidad
 
-class Aulas {
-
-    var id:Int = 0
-    lateinit var nombre : String
-    lateinit var detalle : String
-    lateinit var ubicacionPabellon : String
-    lateinit var ubicacionPiso : String
-    lateinit var requisitos : String
-    lateinit var imagen:String
-}
+data class Aulas(
+    var id: Int = 0,
+    var nombre: String? = null,
+    var detalle: String? = null,
+    var ubicacionPabellon: String? = null,
+    var ubicacionPiso: String? = null,
+    var requisitos: String? = null,
+    var imagen: String? = null
+)
