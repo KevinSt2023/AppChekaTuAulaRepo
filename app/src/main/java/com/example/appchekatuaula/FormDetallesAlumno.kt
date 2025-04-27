@@ -1,4 +1,4 @@
-package com.example.appchekatuaula
+package com.example.appchekatuaula.Actividad
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,63 +7,74 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.appchekatuaula.Util.SQLiteHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.appchekatuaula.Adapter.DetalleAulaAdapter
+import com.example.appchekatuaula.Entidad.Aulas
+import com.example.appchekatuaula.FormBuscar
 import com.example.appchekatuaula.Modelo.AulasDAO
-
+import com.example.appchekatuaula.R
 
 class FormDetallesAlumno : AppCompatActivity() {
-    private lateinit var btnRegresar : Button
+
+    private lateinit var btnRegresar: Button
+    private lateinit var spnAulas: Spinner
+    private lateinit var rcVista: RecyclerView
+    private lateinit var listaAulas: ArrayList<Aulas>
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_form_detalles_alumno)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         asignarReferencias()
+        cargarSpinner()
+    }
 
-        val spinner = findViewById<Spinner>(R.id.spnAulas)
-        val aulasDAO = AulasDAO(this)
-        val listaAulas = aulasDAO.cargarAulas()
+    private fun asignarReferencias() {
+        btnRegresar = findViewById(R.id.btnRegresar)
+        spnAulas = findViewById(R.id.spnAulas)
+        rcVista = findViewById(R.id.rcVista)
 
-        // Extraemos solo los nombres
-        val nombresAulas = listaAulas.map { it.nombre }
+        rcVista.layoutManager = LinearLayoutManager(this)
 
-        // Creamos el adapter para el Spinner
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, nombresAulas)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        // Asignamos el adapter al Spinner
-        spinner.adapter = adapter
-
-        // --- Aquí debajo pones la captura del item seleccionado ---
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                val nombreSeleccionado = nombresAulas[position]
-                Toast.makeText(this@FormDetallesAlumno, "Seleccionaste: $nombreSeleccionado", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // No hacer nada si no selecciona nada
-            }
+        btnRegresar.setOnClickListener {
+            finish() // Cierra esta actividad
         }
     }
 
-    private fun asignarReferencias(){
+    private fun cargarSpinner() {
+        val aulasDAO = AulasDAO(this)
+        listaAulas = aulasDAO.cargarAulas() // <--- AQUÍ, cambiar a cargarAulas()
 
-        btnRegresar = findViewById(R.id.btnRegresar)
-        btnRegresar.setOnClickListener {
-            val intent = Intent(this,FormBuscar::class.java)
-            startActivity(intent)
+        val nombresAulas = listaAulas.map { it.nombre }
+
+        val adapterSpinner = ArrayAdapter(this, android.R.layout.simple_spinner_item, nombresAulas)
+        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spnAulas.adapter = adapterSpinner
+
+        spnAulas.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val aulaSeleccionada = listaAulas[position]
+                val listaMostrar = arrayListOf(aulaSeleccionada)
+
+                val adapterRecycler = DetalleAulaAdapter(listaMostrar)
+                rcVista.adapter = adapterRecycler
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // No hacemos nada
+            }
         }
     }
 }

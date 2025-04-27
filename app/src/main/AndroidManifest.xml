@@ -13,7 +13,7 @@
         android:theme="@style/Theme.AppChekaTuAula"
         tools:targetApi="31">
         <activity
-            android:name=".FormDetallesAlumno"
+            android:name=".Actividad.FormDetallesAlumno"
             android:exported="false" />
         <activity
             android:name=".FormBuscar"

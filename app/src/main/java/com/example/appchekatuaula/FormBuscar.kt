@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.appchekatuaula.Actividad.FormDetallesAlumno
 
 class FormBuscar : AppCompatActivity() {
     private lateinit var btnBuscar : Button
@@ -24,10 +25,15 @@ class FormBuscar : AppCompatActivity() {
     }
 
     private fun asignarReferencias(){
-        btnBuscar = findViewById(R.id.btnBuscar)
+        val btnBuscar = findViewById<Button>(R.id.btnBuscar)
         btnBuscar.setOnClickListener {
-            val intent = Intent(this,FormDetallesAlumno::class.java)
+            val intent = Intent(this, FormDetallesAlumno::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Aquí puedes refrescar datos o reiniciar vistas si es necesario
     }
 }
