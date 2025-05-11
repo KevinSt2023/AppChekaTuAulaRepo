@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="number"
-            android:hint="Ingresa tu código:" />
+            android:hint="Ingresa el código del aula:" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -90,7 +90,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btnBuscar" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnCroquis"
         android:layout_width="250dp"
         android:layout_height="60dp"
         android:layout_marginTop="16dp"
